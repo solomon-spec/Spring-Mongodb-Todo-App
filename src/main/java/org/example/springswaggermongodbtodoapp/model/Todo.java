@@ -1,9 +1,16 @@
 package org.example.springswaggermongodbtodoapp.model;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class Todo {
+
+
     private String id;
+    @NotBlank(message = "Title cannot be blank")
     private String title;
+    @NotBlank(message = "Description cannot be blank")
     private String description;
+    @NotBlank(message = "Completed cannot be blank")
     private boolean completed;
 
 
