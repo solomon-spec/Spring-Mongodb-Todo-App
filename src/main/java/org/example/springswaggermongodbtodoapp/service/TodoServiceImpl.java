@@ -1,5 +1,6 @@
 package org.example.springswaggermongodbtodoapp.service;
 
+import jakarta.validation.Valid;
 import org.example.springswaggermongodbtodoapp.dao.TodoRepository;
 import org.example.springswaggermongodbtodoapp.model.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Todo save(Todo todo) {
+    public Todo save(@Valid Todo todo) {
         return todoRepository.save(todo);
     }
 

@@ -1,9 +1,11 @@
 package org.example.springswaggermongodbtodoapp.controller;
 
+import jakarta.validation.Valid;
 import org.example.springswaggermongodbtodoapp.model.Todo;
 import org.example.springswaggermongodbtodoapp.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class TodoController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Todo> addTodo(@RequestBody Todo todo){
+    public ResponseEntity<Todo> addTodo(@Valid @RequestBody Todo todo){
         todo.setId(null);
         return ResponseEntity.ok(todoService.save(todo));
     }
@@ -65,6 +67,12 @@ public class TodoController {
     public ResponseEntity<Void> deleteAllTodos(){
         todoService.deleteAll();
         return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        String errorMessage = ex.getBindingResult().getAllErrors().get(0).getDefaultMessage();
+        return ResponseEntity.badRequest().body(errorMessage);
     }
 
 }
