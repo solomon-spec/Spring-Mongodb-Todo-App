@@ -1,5 +1,8 @@
 package org.example.springswaggermongodbtodoapp.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.example.springswaggermongodbtodoapp.model.Todo;
 import org.example.springswaggermongodbtodoapp.service.TodoService;
@@ -17,6 +20,7 @@ public class TodoController {
     public TodoController(TodoService todoService) {
         this.todoService = todoService;
     }
+
 
     @GetMapping("/all")
     ResponseEntity<List<Todo>> getAllTodos(){
